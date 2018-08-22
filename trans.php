@@ -4,8 +4,8 @@ $str="ţŢŞşCheloți Germania ÎîÂâĂășȘȚț România este un stat situa
 Iugoslavia 
 ";
 
-//$str=file_get_contents('https://ro.wikipedia.org/wiki/Nistru');
-$str=file_get_contents('https://ro.wikipedia.org'.$_GET['page']);// /wiki/Iugoslavia
+//$str=file_get_contents('https://ro.wikipedia.org/wiki/Nistru');// /wiki/Iugoslavia
+$str=file_get_contents('https://ro.wikipedia.org'.$_GET['page']);
 /*$str='<!DOCTYPE html>
 <script async="" src="/w/load.php?debug=false&amp;lang=ro&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
 <link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=ro&amp;modules=site.styles&amp;only=styles&amp;skin=vector"/>
@@ -27,7 +27,7 @@ function iftag( $tag, $konec )
   $i = $i + strlen($tag) + strlen($seredina) + strlen($konec)-1;
   if( $tag == "<link" ) $seredina = str_replace( 'rel="stylesheet" href="', 'rel="stylesheet" href="https://ro.wikipedia.org', $seredina );
   if( $tag == "<script" ) $seredina = str_replace( ' async="" src="', ' async="" src="https://ro.wikipedia.org', $seredina );
-  if( $tag == "<a" ) $seredina = str_replace( ' href="', ' href="/wikimoldia/trans.php?page=', $seredina );
+  if( $tag == "<a" and strpos( $seredina, "cite_note" ) == false ) $seredina = str_replace( ' href="', ' href="/wikimoldia/trans.php?page=', $seredina );
   echo $tag, $seredina, $konec;
   
   return;
