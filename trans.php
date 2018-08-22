@@ -5,7 +5,7 @@ Iugoslavia
 ";
 
 //$str=file_get_contents('https://ro.wikipedia.org/wiki/Nistru');
-$str=file_get_contents('https://ro.wikipedia.org/wiki/Iugoslavia'.$_GET['page']);
+$str=file_get_contents('https://ro.wikipedia.org'.$_GET['page']);// /wiki/Iugoslavia
 /*$str='<!DOCTYPE html>
 <script async="" src="/w/load.php?debug=false&amp;lang=ro&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
 <link rel="stylesheet" href="/w/load.php?debug=false&amp;lang=ro&amp;modules=site.styles&amp;only=styles&amp;skin=vector"/>
