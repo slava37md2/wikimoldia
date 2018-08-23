@@ -48,7 +48,12 @@ function ifword( $word, $perevod )
   return true;
 }
 
-
+function ifnebukva( $l )
+{
+  global $str;
+  return $str[$l] == " " or $str[$l] ==  "." or $str[$l] == "!" or $str[$l] == "?" or $str[$l] == "," or $str[$l] == "(" or $str[$l] == ")" or $str[$l] == "<" or $str[$l] == ">" or
+      $str[$l] == "'" or $str[$l] == '"' or $str[$l] == "-" or $str[$l] == "\n" or $str[$l] == ":" or $str[$l] == ";";
+}
 
 
 $mm=strlen($str);
@@ -137,7 +142,7 @@ case "Z":
 case "a":
       {
 
-       if (($str[$i-1]=="i" or $str[$i-1]=="I") and ($str[$i+1]==" " or $str[$i+1]=="." or $str[$i+1]=="!" or $str[$i+1]=="?" or $str[$i+1]=="," or $str[$i+1]==")" or $str[$i+1]=="<")) {
+       if ( ($str[$i-1]=="i" or $str[$i-1]=="I") and ifnebukva($i+1) ) {
        echo "я";  
        break;}
 
@@ -184,7 +189,7 @@ case "i":
        { if( ifword("iugoslav","югослав") )break;if( ifword("iulie","юлие") )break; if( ifword("iunie","юние") )break;
        
         if (($str[$i-1]=="i" or $str[$i-1]=="I" or $str[$i-1]=="u" or $str[$i-1]=="U" or $str[$i-1]=="e" or $str[$i-1]=="E" or $str[$i-1]=="a" or $str[$i-1]=="A" or $str[$i-1]=="o" or $str[$i-1]=="O") and 
-	($str[$i+1]==" " or $str[$i+1]=="." or $str[$i+1]=="!" or $str[$i+1]=="?" or $str[$i+1]=="," or $str[$i+1]==")" or $str[$i+1]=="<")) {
+	ifnebukva($i+1)) {
        echo "й";  
        break;}
        
@@ -198,15 +203,16 @@ case "i":
        
        if (($str[$i-1]=="z" or $str[$i-1]=="Z" or $str[$i-1]=="n" or $str[$i-1]=="N" or $str[$i-1]=="r" or $str[$i-1]=="R" or $str[$i-1]=="t" or $str[$i-1]=="T" or 
           $str[$i-1]=="l" or $str[$i-1]=="L" or $str[$i-1]=="g" or $str[$i-1]=="G" or $str[$i-1]=="m" or $str[$i-1]=="M" or $str[$i-1]=="b" or $str[$i-1]=="B" or $str[$i-1]=="v" or $str[$i-1]=="V" or
+	  $str[$i-1]=="f" or $str[$i-1]=="F" or
          ($str[$i-2]==chr(200) and $str[$i-1]==chr(155) ) or ($str[$i-2]==chr(200) and $str[$i-1]==chr(154) )
 	  or ($str[$i-2]==chr(200) and $str[$i-1]==chr(152) ) or ($str[$i-2]==chr(200) and $str[$i-1]==chr(153) )//ши превращается в шь
 	 ) and 
-	($str[$i+1]==" " or $str[$i+1]=="." or $str[$i+1]=="!" or $str[$i+1]=="?" or $str[$i+1]=="," or $str[$i+1]==")" or $str[$i+1]=="<")) {
+	ifnebukva($i+1)) {
        echo "ь";  
        break;}
        
        if (($str[$i-1]=="c" or $str[$i-1]=="C" ) and 
-	($str[$i+1]==" " or $str[$i+1]=="." or $str[$i+1]=="!" or $str[$i+1]=="?" or $str[$i+1]=="," or $str[$i+1]==")" or $str[$i+1]=="<")) {
+	ifnebukva($i+1)) {
        //echo "ь";  
        break;}
        
@@ -261,8 +267,8 @@ case chr(200)://"ț"021B
        
        if ($str[$i+1]==chr(153)  ) {
        echo "ш";  
-       if(($str[$i-1]==" " or $str[$i-1]=="." or $str[$i-1]=="!" or $str[$i-1]=="?" or $str[$i-1]=="," or $str[$i-1]=="(" or $str[$i-1]==")" or $str[$i-1]=="<" or $str[$i-1]==">")and
-       ($str[$i+2]=="i" or $str[$i+2]=="I")){echo "и";$i=$i+2; break;};
+       if(ifnebukva($i-1)and
+       ($str[$i+2]=="i" or $str[$i+2]=="I")){echo "и";$i=$i+2; break;};  //ши
        $i=$i+1;break;}
        
        if ($str[$i+1]==chr(152)  ) {
@@ -334,7 +340,7 @@ case "y":
 
 case "A":
       {
-       if (($str[$i-1]=="i" or $str[$i-1]=="I") and ($str[$i+1]==" " or $str[$i+1]=="." or $str[$i+1]=="!" or $str[$i+1]=="?" or $str[$i+1]=="," or $str[$i+1]==")" or $str[$i+1]=="<")) {
+       if (($str[$i-1]=="i" or $str[$i-1]=="I") and ifnebukva($i+1)) {
        echo "Я";  
        break;}
        
@@ -382,7 +388,7 @@ case "I":
          if( ifword("Iugoslav","Югослав") )break; if( ifword("Iulie","Юлие") )break; if( ifword("Iunie","Юние") )break;
        
         if (($str[$i-1]=="i" or $str[$i-1]=="I" or $str[$i-1]=="u" or $str[$i-1]=="U" or $str[$i-1]=="e" or $str[$i-1]=="E" or $str[$i-1]=="a" or $str[$i-1]=="A" or $str[$i-1]=="o" or $str[$i-1]=="O") and 
-	($str[$i+1]==" " or $str[$i+1]=="." or $str[$i+1]=="!" or $str[$i+1]=="?" or $str[$i+1]=="," or $str[$i+1]==")" or $str[$i+1]=="<")) {
+	ifnebukva($i+1)) {
        echo "Й";  
        break;}
        
@@ -391,11 +397,11 @@ case "I":
        break;}*/
        
        if (($str[$i-1]=="c" or $str[$i-1]=="C" or $str[$i-1]=="z" or $str[$i-1]=="Z" or $str[$i-1]=="n" or $str[$i-1]=="N" or $str[$i-1]=="r" or $str[$i-1]=="R" or $str[$i-1]=="t" or $str[$i-1]=="T" or 
-          $str[$i-1]=="l" or $str[$i-1]=="L" or $str[$i-1]=="g" or $str[$i-1]=="G" or $str[$i-1]=="m" or $str[$i-1]=="M" or $str[$i-1]=="b" or $str[$i-1]=="B" or
+          $str[$i-1]=="l" or $str[$i-1]=="L" or $str[$i-1]=="g" or $str[$i-1]=="G" or $str[$i-1]=="m" or $str[$i-1]=="M" or $str[$i-1]=="b" or $str[$i-1]=="B" or $str[$i-1]=="f" or $str[$i-1]=="F" or
          ($str[$i-2]==chr(200) and $str[$i-1]==chr(155) ) or ($str[$i-2]==chr(200) and $str[$i-1]==chr(154) ) 
 	 or ($str[$i-2]==chr(200) and $str[$i-1]==chr(152) ) or ($str[$i-2]==chr(200) and $str[$i-1]==chr(153) )
 	 ) and 
-	($str[$i+1]==" " or $str[$i+1]=="." or $str[$i+1]=="!" or $str[$i+1]=="?" or $str[$i+1]=="," or $str[$i+1]==")" or $str[$i+1]=="<")) {
+	ifnebukva($i+1)) {
        echo "Ь";  
        break;}
        
